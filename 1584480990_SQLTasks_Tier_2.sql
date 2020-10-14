@@ -66,7 +66,7 @@ Try writing the query without using the OR operator. */
 SELECT 
 	*
 FROM `Facilities`
-WHERE facidIN ( 1, 5 );
+WHERE facid IN ( 1, 5 );
 
 
 /* Q5: Produce a list of facilities, with each labelled as
@@ -110,7 +110,7 @@ INNER JOIN (
 		WHERE  name like '%Tennis Court%') t
 ON b.facid = t.facid
 INNER JOIN `Members` m
-ON b.memid = m.memid
+ON b.memid = m.memid;
 		
 
 /* Q8: Produce a list of bookings on the day of 2012-09-14 which
@@ -130,7 +130,7 @@ ON b.facid = f.facid
 WHERE b.starttime LIKE '2012-09-14%' 
 AND (CASE WHEN b.memid = 0 THEN guestcost
 		ELSE membercost END) * slots > 30
-ORDER BY cost DESC
+ORDER BY cost DESC;
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
 SELECT 
@@ -151,7 +151,7 @@ AND slots * (
 			FROM `Facilities` f
 			WHERE b.facid = f.facid
 			) > 30
-ORDER BY cost DESC
+ORDER BY cost DESC;
 
 /* PART 2: SQLite
 
@@ -173,7 +173,7 @@ FROM Facilities
 INNER JOIN Bookings 
 ON Bookings.facid = Facilities.facid
 GROUP BY name
-ORDER BY revenue
+ORDER BY revenue;
 
 	
 
@@ -202,7 +202,7 @@ SELECT
 FROM (SELECT * FROM`Members` WHERE memid != 0) m
 LEFT JOIN (SELECT * FROM`Members` WHERE memid != 0) r
 ON m.recommendedby = r.memid
-ORDER BY Member_surname,Member_firstname 
+ORDER BY Member_surname,Member_firstname; 
 
 /* Q12: Find the facilities with their usage by member, but not guests */
 
@@ -218,7 +218,7 @@ ON m.memid = b.memid
 INNER JOIN `Facilities` f
 ON b.facid = f.facid
 GROUP BY name, m.memid, m.firstname
-ORDER BY Minutes_used DESC
+ORDER BY Minutes_used DESC;
 
 /* Q13: Find the facilities usage by month, but not guests */
 
@@ -231,4 +231,4 @@ FROM
 INNER JOIN `Facilities` f 
 ON b.facid = f.facid 
 GROUP BY name, month 
-ORDER BY Minutes_used DESC
+ORDER BY Minutes_used DESC;
